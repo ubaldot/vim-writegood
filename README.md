@@ -5,15 +5,17 @@ Check your English prose in Vim.
 <img src="/WriteGoodDemo.gif" width="60%" height="60%">
 </p>
 
+
 ## Introduction
 Vim-writegood naively check your English prose.
-
 It is nothing but a simple wrapper around
 [write-good](https://github.com/btford/write-good) written in Vim9.
+
 
 ## Requirements
 You must have [write-good](https://github.com/btford/write-good) installed and
 you need Vim9.
+
 
 ## Usage
 Vim-writegood has one command:
@@ -21,7 +23,8 @@ Vim-writegood has one command:
 ```
 :WriteGoodToggle
 ```
-messages are displayed in the command-line.
+messages are displayed in the command-line.<br>
+
 The diagnostic messages are not automatically updated.
 You must run `:WriteGoodToggle` twice to refresh.
 

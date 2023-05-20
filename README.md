@@ -8,7 +8,7 @@ Check your English prose in Vim.
 
 ## Introduction
 Vim-writegood naively check your English prose.
-It is nothing but a simple wrapper around
+Nothing but a simple wrapper around
 [write-good](https://github.com/btford/write-good) written in Vim9.
 
 
@@ -23,7 +23,7 @@ Vim-writegood has one command:
 ```
 :WriteGoodToggle
 ```
-messages are displayed in the command-line.<br>
+diagnostic messages are displayed in the command-line.<br>
 
 The diagnostic messages are not automatically updated.
 You must run `:WriteGoodToggle` twice to refresh.
@@ -41,8 +41,8 @@ To figure out the meaning of the latter three parameters, check `:h
 sign_define()` and to figure out possible values type `:highlight`.
 
 ## Contributing
-The code can be heavily optimized and robustified, so feel free to send a PR
-if have improvement ideas.
+There is room for optimization and robustification, feel free to send a PR
+if have any improvement ideas.
 
 ## License
 Same as Vim.

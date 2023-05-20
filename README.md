@@ -32,8 +32,7 @@ diagnostic messages are displayed in the command-line.<br>
 There are few parameters that you can tweak:
 ```
 # Default values
-g:writegood_options = "" # CLI parameters to pass to write-good, see
-write-good docs
+g:writegood_options = "" # CLI parameters to pass to write-good
 g:writegood_linehl = "CursorLine"
 g:writegood_text = "--"
 g:writegood_texthl = "IncSearch"

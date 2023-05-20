@@ -1,4 +1,4 @@
-# vim-writegood
+# vim-writegood (undergoing!!!)
 Check your English prose in Vim.
 
 <p align="center">
@@ -8,7 +8,7 @@ Check your English prose in Vim.
 
 ## Introduction
 Vim-writegood naively check your English prose.
-Nothing but a simple wrapper around
+It is nothing but a simple wrapper around
 [write-good](https://github.com/btford/write-good) written in Vim9.
 
 
@@ -25,8 +25,8 @@ Vim-writegood has one command:
 ```
 diagnostic messages are displayed in the command-line.<br>
 
-The diagnostic messages are not automatically updated.
-You must run `:WriteGoodToggle` twice to refresh.
+<!-- The diagnostic messages are not automatically updated. -->
+<!-- You must run `:WriteGoodToggle` twice to refresh. -->
 
 ## Configuration
 There are few parameters that you can tweak:

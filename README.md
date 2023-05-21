@@ -35,7 +35,7 @@ However, if Vim becomes slow, you may want to set `g:writegood_autoupdate` to
 There are few parameters that you can tweak:
 ```
 # Default values
-g:writegood_options = "" # CLI parameters to pass to write-good
+g:writegood_options = "" # CLI options to append to write-good call
 g:writegood_autoupdate = true
 g:writegood_updatetime = 1000 # [ms]
 g:writegood_linehl = "CursorLine"

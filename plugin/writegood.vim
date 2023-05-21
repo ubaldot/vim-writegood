@@ -2,7 +2,7 @@ vim9script
 
 # Naively check your English prose.
 # Maintainer:	Ubaldo Tiberi
-# GetLatestVimScripts: 6068 1 :AutoInstall: writegood.vim
+# GetLatestVimScripts: 6073 1 :AutoInstall: writegood.vim
 # License: Vim license
 
 if !has('vim9script') ||  v:version < 900

@@ -2,7 +2,7 @@
 Check your English prose in Vim.
 
 <p align="center">
-<img src="/WriteGoodDemo.gif" width="60%" height="60%">
+<img src="/WriteGoodDemo.gif" width="70%" height="70%">
 </p>
 
 

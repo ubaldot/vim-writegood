@@ -1,0 +1,17 @@
+:WritegoodRefresh	writegood.txt	/*:WritegoodRefresh*
+:WritegoodToggle	writegood.txt	/*:WritegoodToggle*
+WritegoodCommands	writegood.txt	/*WritegoodCommands*
+WritegoodConfiguration	writegood.txt	/*WritegoodConfiguration*
+WritegoodContents	writegood.txt	/*WritegoodContents*
+WritegoodIntroduction	writegood.txt	/*WritegoodIntroduction*
+WritegoodRequirements	writegood.txt	/*WritegoodRequirements*
+WritegoodUsage	writegood.txt	/*WritegoodUsage*
+g:writegood_autoupdate	writegood.txt	/*g:writegood_autoupdate*
+g:writegood_contrib	writegood.txt	/*g:writegood_contrib*
+g:writegood_license	writegood.txt	/*g:writegood_license*
+g:writegood_linehl	writegood.txt	/*g:writegood_linehl*
+g:writegood_options	writegood.txt	/*g:writegood_options*
+g:writegood_text	writegood.txt	/*g:writegood_text*
+g:writegood_texthl	writegood.txt	/*g:writegood_texthl*
+g:writegood_updatetime	writegood.txt	/*g:writegood_updatetime*
+writegood.txt	writegood.txt	/*writegood.txt*

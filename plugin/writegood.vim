@@ -36,6 +36,13 @@ if !exists('g:writegood_texthl')
      g:writegood_texthl = "IncSearch"
 endif
 
+if !exists('g:writegood_updatetime')
+    g:writegood_updatetime = 1000 # [ms]
+endif
+
+if !exists('g:writegood_autoupdate')
+    g:writegood_autoupdate = true
+endif
 
 # --------------------------
 # Commands
@@ -45,4 +52,8 @@ import autoload "../lib/wgfunctions.vim"
 
 if !exists(":WritegoodToggle")
   command WritegoodToggle :call <SID>wgfunctions.WriteGoodToggle()
+endif
+
+if !exists(":WritegoodRefresh")
+  command WritegoodRefresh :call <SID>wgfunctions.WriteGoodRefresh()
 endif

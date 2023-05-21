@@ -1,4 +1,4 @@
-# vim-writegood (undergoing!!!)
+# vim-writegood
 Check your English prose in Vim.
 
 <p align="center">
@@ -8,8 +8,8 @@ Check your English prose in Vim.
 
 ## Introduction
 Vim-writegood naively check your English prose.
-It is nothing but a simple wrapper around
-[write-good](https://github.com/btford/write-good) written in Vim9.
+It is nothing but a simple Vim9 wrapper around
+[write-good](https://github.com/btford/write-good).
 
 
 ## Requirements
@@ -18,21 +18,26 @@ you need Vim9.
 
 
 ## Usage
-Vim-writegood has one command:
+Vim-writegood has two commands:
 
 ```
 :WriteGoodToggle
+:WriteGoodRefresh
 ```
 diagnostic messages are displayed in the command-line.<br>
+You can let the diagnostics to automatically update by setting the variables
+`g:writegood_autoupdate` and `g:writegood_updatetime`.
 
-<!-- The diagnostic messages are not automatically updated. -->
-<!-- You must run `:WriteGoodToggle` twice to refresh. -->
+However, if Vim becomes slow, you may want to set `g:writegood_autoupdate` to
+`false` and refresh the diagnostics manually through `:WriteGoodRefresh`.
 
 ## Configuration
 There are few parameters that you can tweak:
 ```
 # Default values
 g:writegood_options = "" # CLI parameters to pass to write-good
+g:writegood_autoupdate = true
+g:writegood_updatetime = 1000 # [ms]
 g:writegood_linehl = "CursorLine"
 g:writegood_text = "--"
 g:writegood_texthl = "IncSearch"

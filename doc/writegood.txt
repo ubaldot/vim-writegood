@@ -1,0 +1,115 @@
+*writegood.txt*                         Check your English prose with Vim.
+
+         _                               _ _                             _ ~
+        (_)                             (_) |                           | |~
+  __   ___ _ __ ___ ________      ___ __ _| |_ ___  __ _  ___   ___   __| |~
+  \ \ / / | '_ ` _ \______\ \ /\ / / '__| | __/ _ \/ _` |/ _ \ / _ \ / _` |~
+   \ V /| | | | | | |      \ V  V /| |  | | ||  __/ (_| | (_) | (_) | (_| |~
+    \_/ |_|_| |_| |_|       \_/\_/ |_|  |_|\__\___|\__, |\___/ \___/ \__,_|~
+                                                    __/ |                  ~
+                                                   |___/                   ~
+
+==============================================================================
+CONTENTS                                                *WritegoodContents*
+
+    1. Introduction ................. |WritegoodIntroduction|
+    2. Requirements ................. |WritegoodRequirements|
+    3. Usage ........................ |WritegoodUsage|
+        3.1 Commands ................ |WritegoodCommands|
+        3.2 Mappings ................ |WritegoodMappings|
+    4. Configuration ................ |WritegoodConfiguration|
+    5. Add new languages ............ |WritegoodNewLanguages|
+    6. Contributing ................. |WritegoodContributing|
+    8. License ...................... |WritegoodLicense|
+
+
+==============================================================================
+INTRODUCTION                                          *WritegoodIntroduction*
+
+Vim-writegood naively check your English prose. It is nothing but a simple
+Vim9 wrapper around [write-good](https://github.com/btford/write-good).
+
+==============================================================================
+REQUIREMENTS                                         *WritegoodRequirements*
+
+You must have [write-good](https://github.com/btford/write-good) installed and
+you need Vim9.
+
+==============================================================================
+USAGE                                                     *WritegoodUsage*
+
+Vim-writegood has two commands:
+>
+    :WriteGoodToggle
+    :WriteGoodRefresh
+<
+diagnostic messages are displayed in the command-line.
+You can let the diagnostics to automatically update by setting the variables
+|g:writegood_autoupdate| and |g:writegood_updatetime|.
+
+However, if Vim becomes slow, you may want to set |g:writegood_autoupdate| to
+|false| and refresh the diagnostics manually through :WriteGoodRefresh.
+
+==============================================================================
+COMMANDS                                                 *WritegoodCommands*
+
+                                                        *:WritegoodToggle*
+:WritegoodToggle               Turn on and off the write-good diagnostics.
+
+                                                        *:WritegoodRefresh*
+:WritegoodRefresh              Refresh the diagnostics.
+
+
+==============================================================================
+CONFIGURATION                                        *WritegoodConfiguration*
+
+
+                                                        *g:writegood_options*
+Type: 'string'
+Default: ""
+
+Options to append write-good call. See write-good docs for more info.
+
+                                                    *g:writegood_autoupdate*
+Type: 'bool'
+Default: true
+
+If true, automatically update the diagnostics based on |CursorHold| event.
+
+                                                   *g:writegood_updatetime*
+Type: 'number'
+Default: 1000
+
+Set the local 'updatetime' of the diagnostics if |g:writegood_autoupdate| is
+true.
+
+                                                         *g:writegood_linehl*
+Type: 'highlight'
+Default: "CursorLine"
+
+Highlight group used for the whole line the sign is placed in.
+
+                                                        *g:writegood_text*
+Type: 'string'
+Default: "--"
+text that is displayed when there is no icon or the GUI is not being used.
+
+                                                      *g:writegood_texthl*
+Type: 'highlight'
+Default: "IncSearch"
+
+Highlight group used for the text item.
+
+To figure out the meaning of the latter three parameters, check
+|sign_define()| and to figure out possible values check 'highlight'.
+
+
+==============================================================================
+CONTRIBUTING                                         *g:writegood_contrib*
+
+There is room for optimization and robustification, feel free to send a PR
+if have any improvement ideas.
+
+==============================================================================
+LICENSE                                             *g:writegood_license*
+Same as Vim.

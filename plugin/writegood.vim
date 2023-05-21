@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 # Naively check your English prose.
 # Maintainer:	Ubaldo Tiberi
@@ -51,9 +51,9 @@ endif
 import autoload "../lib/wgfunctions.vim"
 
 if !exists(":WritegoodToggle")
-  command WritegoodToggle :call <SID>wgfunctions.WriteGoodToggle()
+  command WritegoodToggle <SID>wgfunctions.WriteGoodToggle()
 endif
 
 if !exists(":WritegoodRefresh")
-  command WritegoodRefresh :call <SID>wgfunctions.WriteGoodRefresh()
+  command WritegoodRefresh <SID>wgfunctions.WriteGoodRefresh()
 endif

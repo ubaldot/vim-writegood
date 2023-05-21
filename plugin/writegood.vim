@@ -33,7 +33,7 @@ if !exists('g:writegood_text')
 endif
 
 if !exists('g:writegood_texthl')
-     g:writegood_texthl = "IncSearch"
+     g:writegood_texthl = ""
 endif
 
 if !exists('g:writegood_updatetime')

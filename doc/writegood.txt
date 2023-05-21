@@ -96,7 +96,7 @@ text that is displayed when there is no icon or the GUI is not being used.
 
                                                       *g:writegood_texthl*
 Type: 'highlight'
-Default: "IncSearch"
+Default: ""
 
 Highlight group used for the text item.
 

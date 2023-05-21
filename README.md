@@ -40,7 +40,7 @@ g:writegood_autoupdate = true
 g:writegood_updatetime = 1000 # [ms]
 g:writegood_linehl = "CursorLine"
 g:writegood_text = "--"
-g:writegood_texthl = "IncSearch"
+g:writegood_texthl = ""
 ```
 To figure out the meaning of the latter three parameters, check `:h
 sign_define()` and to figure out possible values type `:highlight`.

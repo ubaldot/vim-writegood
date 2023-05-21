@@ -51,9 +51,9 @@ endif
 import autoload "../lib/wgfunctions.vim"
 
 if !exists(":WritegoodToggle")
-  command WritegoodToggle <SID>wgfunctions.WriteGoodToggle()
+  command WritegoodToggle call <SID>wgfunctions.WriteGoodToggle()
 endif
 
 if !exists(":WritegoodRefresh")
-  command WritegoodRefresh <SID>wgfunctions.WriteGoodRefresh()
+  command WritegoodRefresh call <SID>wgfunctions.WriteGoodRefresh()
 endif

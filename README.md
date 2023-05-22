@@ -36,8 +36,8 @@ This means that you can use all the quickfix list features like jumping to the
 next message, to the previous, see all the messages list,  etc.
 See `:h quickfix` for more info.<br>
 
-The quickfix list is updated automatically "on save", i.e.  you must save your
-file to refresh the linting, it won't happen in real-time.
+The quickfix list automatically updates  "on save", i.e.  you must save your
+file to refresh the linting because it won't happen in real-time.
 
 >**Warning**
 >

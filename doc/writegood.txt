@@ -48,12 +48,12 @@ First, you need to turn on the linter with following command:
 which represents the only command in vim-writegood.
 
 The diagnostic messages are displayed in the command-line and are stored in
-the quickfix list.
-This means that you can use all the quickfix list features to conveniently
-move around. See `:h quickfix`.
+the |quickfix| list.
+This means that you can use all the |quickfix| list features such as |:cnext|,
+|:cprev|, |:copen|, etc. to conveniently move around.
 
-The quickfix list automatically updates  "on save", i.e.  you must save your
-file to refresh the linting.
+The |quickfix| list automatically updates  "on save", i.e.  you must save your
+file to refresh the linting after you have fixed some problems.
 
 **Warning**
  When you change (or come back to a previous) buffer, you have to manually

@@ -6,90 +6,107 @@ sign_define('writegood',
     \ "linehl": g:writegood_linehl,
     \ "textl": g:writegood_texthl })
 
-var tmp = tempname()
 
-def WriteGoodOn()
-    # Call writegood
-    writefile(getbufline('%', 1, line('$')), tmp)
-    defer delete(tmp)
-    var text_list = systemlist("write-good " .. g:writegood_options .. tmp)
-
-    # Search error messages and lines
-    var delimiter = "------------"
-    b:line_numbers = []
-    var error_message = ""
-    b:error_messages = []
-    # TODO The following search can be optimized and robustified
-    for ii in range(0, len(text_list) - 1)
-        # Check if the line starts with the delimiter
-        if text_list[ii][0 : len(delimiter) - 1] ==# delimiter
-            b:line_numbers -> add(str2nr(matchstr(text_list[ii - 1],
-                        \ 'on line \zs\d\+')))
-            error_message = "write-good: " .. matchstr(text_list[ii - 1],
-                        \ '^\(.*\)on line \d\+')
-                        \ -> substitute('on line \d\+', "", "g")
-            b:error_messages -> add(error_message)
-        endif
-    endfor
-
-    # Place signs.
-    for line in b:line_numbers
-        sign_place(0, 'writegood_grp', 'writegood', '%', {'lnum': line})
-    endfor
-
-    # Set autocmd
-    # Existence of #WRITEGOOD_LINT#CursorMoved also imply that the linting is
-    # ON.
-    if !exists('#WRITEGOOD_LINT#CursorMoved')
-        augroup WRITEGOOD_LINT
-            autocmd!
-            autocmd CursorMoved,CursorHold <buffer>
-                \ if index(b:line_numbers, line('.')) != -1
-                \ | echo b:error_messages[index(b:line_numbers, line('.'))]
-                \ | else
-                \ | echo ""
-                \ | endif
-        augroup END
+def TurnOn()
+    if g:writegood_compiler ==# "writegood"
+        compiler writegood
+    else
+        compiler vale
     endif
 
-    # If user wants to auto update the diagnostics
-    if !exists('#WRITEGOOD_AUTOUPDATE#CursorHold') && g:writegood_autoupdate
-        execute "setlocal updatetime=" .. g:writegood_updatetime
-        augroup WRITEGOOD_AUTOUPDATE
-            autocmd!
-            autocmd CursorHold <buffer> WriteGoodRefresh()
-        augroup END
+    # Generate QuickFixList
+    # ------------------------------------
+    # TODO Is there any mechanism to work "live" with the buffer?
+    # This could be an idea but it won't work:
+    # var tmp = tempname()
+    # writefile(getbufline('%', 1, line('$')), tmp)
+    # defer delete(tmp)
+    # silent exe $"make! {g:writegood_options} {tmp}"
+    # The problems are:
+    #   1) The file in the quickfixlist becomes tmp
+    #   2) tmp is opened and % is now tmp.
+    #
+    # A solution could be:
+    #   1) var buf_name = expand('%:t') # before make on tmp
+    #   2) setqflist filename = buf_name # after make
+    #   3) bwipeout bunfnr('%') # The tmp is displayed
+    #
+    #   But this sucks. I think that updating after you save (as you do when
+    #   you compile: save-make iteration and the number of problems -
+    #   hopefully - decreases) is not a bad idea.
+    # ------------------------------------
+    #
+    silent exe $"make! {g:writegood_options}"
+
+
+    b:line_numbers = []
+    b:error_messages = []
+    var qflist = getqflist()
+    for entry in qflist
+        # entry.file = buf_name, in connection to the TODO discussion above
+        add(b:line_numbers, entry.lnum)
+        add(b:error_messages, entry.text)
+        sign_place(0, 'writegood_grp', 'writegood', '%', {'lnum': entry.lnum})
+    endfor
+
+    b:writegood_is_on = true
+
+    # Set autocmd for showing the error message
+    # Existence of #WRITEGOOD_LINT#CursorMoved also imply that the linting is
+    # ON.
+    augroup WRITEGOOD_LINT
+        autocmd!
+        autocmd CursorMoved,CursorHold <buffer> DisplayMessage()
+    augroup END
+
+    # Save for updating the QuickFixList.
+    augroup WRITEGOOD_REFRESH_ON_SAVE
+        autocmd!
+        autocmd BufWritePost <buffer> TurnOff() | TurnOn()
+    augroup END
+enddef
+
+def DisplayMessage()
+    var idx = index(b:line_numbers, line('.'))
+
+    if idx != -1
+        echo b:error_messages[idx]
+    else
+        echo ""
     endif
 enddef
 
-def WriteGoodOff()
+# This is triggered by the event QuickFixCmdPre
+# OR by toggle when you want to shutoff everything
+def TurnOff()
     # No need to check if there are any sign, the following works anyways
     # (In the worst case it returns -1).
     sign_unplace('writegood_grp', {'buffer': '%'})
+    setqflist([])
 
-    if exists('#WRITEGOOD_LINT#CursorMoved')
-        augroup WRITEGOOD_LINT
-            autocmd!
-        augroup END
-    endif
-    if exists('#WRITEGOOD_AUTOUPDATE#CursorHold')
-        augroup WRITEGOOD_AUTOUPDATE
-            autocmd!
-        augroup END
-    endif
+    b:line_numbers = []
+    b:error_messages = []
+    b:writegood_is_on = false
+
+    augroup WRITEGOOD_LINT
+        autocmd!
+    augroup END
+
+    augroup WRITEGOOD_REFRESH_ON_SAVE
+        autocmd!
+    augroup END
 enddef
 
-export def WriteGoodToggle()
-    # Existence of #WRITEGOOD_LINT#CursorMoved also imply that the linting is
-    # ON.
-    if exists('#WRITEGOOD_LINT#CursorMoved')
-        WriteGoodOff()
+export def Toggle()
+    # Init
+    if !exists("b:writegood_is_on")
+        b:writegood_is_on = false
+    endif
+
+    # Execution
+    if b:writegood_is_on
+        TurnOff()
     else
-        WriteGoodOn()
+        TurnOn()
     endif
-enddef
-
-export def WriteGoodRefresh()
-    WriteGoodOff()
-    WriteGoodOn()
 enddef

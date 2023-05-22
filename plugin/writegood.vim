@@ -16,12 +16,15 @@ if exists('g:writegood_loaded')
 endif
 g:writegood_loaded = true
 
-
 # --------------------------
 # User settings
 # --------------------------
 if !exists('g:writegood_options')
     g:writegood_options = ""
+endif
+
+if !exists('g:writegood_compiler')
+    g:writegood_compiler = "writegood"
 endif
 
 if !exists('g:writegood_linehl')
@@ -36,14 +39,6 @@ if !exists('g:writegood_texthl')
      g:writegood_texthl = ""
 endif
 
-if !exists('g:writegood_updatetime')
-    g:writegood_updatetime = 1000 # [ms]
-endif
-
-if !exists('g:writegood_autoupdate')
-    g:writegood_autoupdate = true
-endif
-
 # --------------------------
 # Commands
 # --------------------------
@@ -51,9 +46,5 @@ endif
 import autoload "../lib/wgfunctions.vim"
 
 if !exists(":WritegoodToggle")
-  command WritegoodToggle call <SID>wgfunctions.WriteGoodToggle()
-endif
-
-if !exists(":WritegoodRefresh")
-  command WritegoodRefresh call <SID>wgfunctions.WriteGoodRefresh()
+  command WritegoodToggle call <SID>wgfunctions.Toggle()
 endif

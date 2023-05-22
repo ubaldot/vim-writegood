@@ -15,54 +15,60 @@ CONTENTS                                                *WritegoodContents*
     1. Introduction ................. |WritegoodIntroduction|
     2. Requirements ................. |WritegoodRequirements|
     3. Usage ........................ |WritegoodUsage|
-        3.1 Commands ................ |WritegoodCommands|
-        3.2 Mappings ................ |WritegoodMappings|
     4. Configuration ................ |WritegoodConfiguration|
-    5. Add new languages ............ |WritegoodNewLanguages|
+    5. Limitations .................. |WritegoodLimitations|
     6. Contributing ................. |WritegoodContributing|
-    8. License ...................... |WritegoodLicense|
+    7. License ...................... |WritegoodLicense|
 
 
 ==============================================================================
 INTRODUCTION                                          *WritegoodIntroduction*
 
-Vim-writegood naively check your English prose. It is nothing but a simple
-Vim9 wrapper around [write-good](https://github.com/btford/write-good).
+Vim-writegood naively check your English prose.
+
+It is nothing but a simple Vim9 wrapper around
+[write-good](https://github.com/btford/write-good) and
+[vale](https://vale.sh). You choose which one you want to use.
 
 ==============================================================================
 REQUIREMENTS                                         *WritegoodRequirements*
 
-You must have [write-good](https://github.com/btford/write-good) installed and
-you need Vim9.
+You must have [write-good](https://github.com/btford/write-good) and/or
+[vale](https://vale.sh) installed and configured and you need Vim9.
 
 ==============================================================================
 USAGE                                                     *WritegoodUsage*
 
-Vim-writegood has two commands:
+First, you need to turn on the linter with following command:
+
 >
     :WriteGoodToggle
-    :WriteGoodRefresh
 <
-diagnostic messages are displayed in the command-line.
-You can let the diagnostics to automatically update by setting the variables
-|g:writegood_autoupdate| and |g:writegood_updatetime|.
 
-However, if Vim becomes slow, you may want to set |g:writegood_autoupdate| to
-|false| and refresh the diagnostics manually through :WriteGoodRefresh.
+which represents the only command in vim-writegood.
 
-==============================================================================
-COMMANDS                                                 *WritegoodCommands*
+The diagnostic messages are displayed in the command-line and are stored in
+the quickfix list.
+This means that you can use all the quickfix list features to conveniently
+move around. See `:h quickfix`.
 
-                                                        *:WritegoodToggle*
-:WritegoodToggle               Turn on and off the write-good diagnostics.
+The quickfix list automatically updates  "on save", i.e.  you must save your
+file to refresh the linting.
 
-                                                        *:WritegoodRefresh*
-:WritegoodRefresh              Refresh the diagnostics.
-
+**Warning**
+ When you change (or come back to a previous) buffer, you have to manually
+ re-enable the linting. Don't be fooled if the highlight is still on!
+ To fix it, run `:WriteGoodToggle` once or twice, that's all.
 
 ==============================================================================
 CONFIGURATION                                        *WritegoodConfiguration*
 
+
+                                                    *g:writegood_compiler*
+Type: "writegood" or "vale"
+Default: "writegood"
+
+Linter to be used.
 
                                                         *g:writegood_options*
 Type: 'string'
@@ -70,18 +76,6 @@ Default: ""
 
 Options to append write-good call. See write-good docs for more info.
 
-                                                    *g:writegood_autoupdate*
-Type: 'bool'
-Default: true
-
-If true, automatically update the diagnostics based on |CursorHold| event.
-
-                                                   *g:writegood_updatetime*
-Type: 'number'
-Default: 1000
-
-Set the local 'updatetime' of the diagnostics if |g:writegood_autoupdate| is
-true.
 
                                                          *g:writegood_linehl*
 Type: 'highlight'
@@ -103,13 +97,27 @@ Highlight group used for the text item.
 To figure out the meaning of the latter three parameters, check
 |sign_define()| and to figure out possible values check 'highlight'.
 
+==============================================================================
+LIMITATIONS                                         *WritegoodLimitations*
+
+When you change (or come back to a previous) buffer, you have to manually
+re-enable the linting by running |:WriteGoodToggle| once or twice and
+everything will come back to work perfectly fine.
+
+This is due because the quickfix list is not updated automatically when you
+change buffer. Using location lists won't help because they are tied to a
+window, not to a buffer. Calling TurnOff() when you leave the buffer won't
+work either because if you jump into the quickfix list you would lose
+everything (and that is not what you want). A solution would be to specify a
+BufEnter autocmd based on selected filetypes, but I really don't like the idea
+of listing a plethora of files where this kind of linting can be useful.
 
 ==============================================================================
-CONTRIBUTING                                         *g:writegood_contrib*
+CONTRIBUTING                                         *WritegoodContributing*
 
 There is room for optimization and robustification, feel free to send a PR
 if have any improvement ideas.
 
 ==============================================================================
-LICENSE                                             *g:writegood_license*
+LICENSE                                                *WritegoodLicense*
 Same as Vim.

@@ -6,8 +6,10 @@ sign_define('writegood',
     \ "linehl": g:writegood_linehl,
     \ "textl": g:writegood_texthl })
 
+
+var tmp = tempname()
+
 export def Refresh()
-    # Call make
     if g:writegood_compiler ==# "writegood"
         compiler writegood
     else
@@ -15,13 +17,13 @@ export def Refresh()
     endif
 
     # Generate QuickFixList
-    silent make
+    writefile(getbufline('%', 1, line('$')), tmp)
+    defer delete(tmp)
+    silent exe $"make {tmp}"
 enddef
 
 # This is triggered by the event QuickFixCmdPost
 export def HighlightOn()
-    # b:line_numbers = []
-    # b:error_messages = []
     var qflist = getqflist()
 
     for entry in qflist

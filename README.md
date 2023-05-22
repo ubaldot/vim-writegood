@@ -33,13 +33,14 @@ which represents the only command in vim-writegood.<br>
 The diagnostic messages are displayed in the command-line and are stored in
 the quickfix list.<br>
 This means that you can use all the quickfix list features like jumping to the
-next message, to the previous, etc.
+next message, to the previous, see all the messages list,  etc.
 See `:h quickfix` for more info.<br>
 
 The quickfix list is updated automatically "on save", i.e.  you must save your
-file to refresh the linting.
+file to refresh the linting, it won't happen in real-time.
 
 >**Warning**
+>
 > When you change (or come back to a previous) buffer, you have to manually
 > re-enable the linting. Don't be fooled if the highlight is still on!
 > To fix it, run `:WriteGoodToggle` once or twice, that's all.

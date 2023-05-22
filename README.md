@@ -32,8 +32,8 @@ which represents the only command in vim-writegood.<br>
 
 The diagnostic messages are displayed in the command-line and are stored in
 the quickfix list.<br>
-This means that you can use all the quickfix list features like jumping to the
-next message, to the previous, see all the messages list,  etc.
+This means that you can use quickfix list features to move around the
+diagnostic messages.
 See `:h quickfix` for more info.<br>
 
 The quickfix list automatically updates  "on save", i.e.  you must save your

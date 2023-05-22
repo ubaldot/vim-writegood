@@ -34,7 +34,7 @@ It is nothing but a simple Vim9 wrapper around
 REQUIREMENTS                                         *WritegoodRequirements*
 
 You must have [write-good](https://github.com/btford/write-good) and/or
-[vale](https://vale.sh) installed and you need Vim9.
+[vale](https://vale.sh) installed and configured and you need Vim9.
 
 ==============================================================================
 USAGE                                                     *WritegoodUsage*

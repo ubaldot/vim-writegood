@@ -38,7 +38,7 @@ See `:h quickfix` for more info on the quickfix list.
 >**Warning**
 > When you change (or come back to a previous) buffer, you have to manually
 > re-enable the linting, don't be fooled if the highlight is still on!
-> To  do that, all you have to do is to run `:WriteGoodToggle` once or
+> To do that, all you have to do is to run `:WriteGoodToggle` once or
 > twice and everything will come back to work perfectly fine. Nothing special.
 > I hope that such an action won't bother you too much. :)
 

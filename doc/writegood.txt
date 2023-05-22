@@ -39,22 +39,26 @@ You must have [write-good](https://github.com/btford/write-good) and/or
 ==============================================================================
 USAGE                                                     *WritegoodUsage*
 
-Vim-writegood has one command:
+First, you need to turn on the linter with following command:
+
 >
     :WriteGoodToggle
 <
-diagnostic messages are placed in the |quickfix| list and are also displayed in
-the command-line.
 
-Given that the messages end up in the |quickfix| list, you can use all the
-|quickfix| list functions, including |:copen|, |:cnext|, |:cprev|, etc.
+which represents the only command in vim-writegood.
+
+The diagnostic messages are displayed in the command-line and are stored in
+the quickfix list.
+This means that you can use all the quickfix list features to conveniently
+move around. See `:h quickfix`.
+
+The quickfix list automatically updates  "on save", i.e.  you must save your
+file to refresh the linting.
 
 **Warning**
  When you change (or come back to a previous) buffer, you have to manually
- re-enable the linting, don't be fooled if the highlight is still on!
- To  do that, all you have to do is to run :WriteGoodToggle once or
- twice and everything will come back to work perfectly fine. Nothing special.
- I hope that such an action won't bother you too much. :)
+ re-enable the linting. Don't be fooled if the highlight is still on!
+ To fix it, run `:WriteGoodToggle` once or twice, that's all.
 
 ==============================================================================
 CONFIGURATION                                        *WritegoodConfiguration*

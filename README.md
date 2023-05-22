@@ -31,7 +31,7 @@ Vim-writegood has one command:
 diagnostic messages are placed in the quickfix list and are also displayed in
 the command-line.<br>
 
-You can use all the quickfix list functions, including `:copen, :cnext,
+You can use all the quickfix list functions, such as `:copen, :cnext,
 :cprev`, etc.  Try the commands that I just wrote to see what happens.
 And check `:h quickfix` for more info.
 

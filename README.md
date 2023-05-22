@@ -31,12 +31,13 @@ First, you need to turn on the linter with following command:
 which represents the only command in vim-writegood.<br>
 
 The diagnostic messages are displayed in the command-line and are stored in
-the quickfix list.
-This means that you can use all the quickfix list features to
-jump to the next message, to the previous, to list all the messages, etc.
-See `:h quickfix` for more info.
-The quickfix list is updated automatically "on save", i.e. diagnostic
-information are updated every time you save your file.
+the quickfix list.<br>
+This means that you can use all the quickfix list features like jumping to the
+next message, to the previous, etc.
+See `:h quickfix` for more info.<br>
+
+The quickfix list is updated automatically "on save", i.e.  you must save your
+file to refresh the linting.
 
 >**Warning**
 > When you change (or come back to a previous) buffer, you have to manually

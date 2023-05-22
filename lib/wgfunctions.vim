@@ -6,8 +6,6 @@ sign_define('writegood',
     \ "linehl": g:writegood_linehl,
     \ "textl": g:writegood_texthl })
 
-b:line_numbers = []
-b:error_messages = []
 
 def TurnOn()
     if g:writegood_compiler ==# "writegood"
@@ -37,8 +35,12 @@ def TurnOn()
     #   you compile: save-make iteration and the number of problems -
     #   hopefully - decreases) is not a bad idea.
     # ------------------------------------
+    #
     silent exe $"make! {g:writegood_options}"
 
+
+    b:line_numbers = []
+    b:error_messages = []
     var qflist = getqflist()
     for entry in qflist
         # entry.file = buf_name, in connection to the TODO discussion above
@@ -47,27 +49,30 @@ def TurnOn()
         sign_place(0, 'writegood_grp', 'writegood', '%', {'lnum': entry.lnum})
     endfor
 
+    b:writegood_is_on = true
+
     # Set autocmd for showing the error message
     # Existence of #WRITEGOOD_LINT#CursorMoved also imply that the linting is
     # ON.
-    if !exists('#WRITEGOOD_LINT#CursorMoved')
-        augroup WRITEGOOD_LINT
-            autocmd!
-            autocmd CursorMoved,CursorHold <buffer>
-                \ if index(b:line_numbers, line('.')) != -1
-                \ | echo b:error_messages[index(b:line_numbers, line('.'))]
-                \ | else
-                \ | echo ""
-                \ | endif
-        augroup END
-    endif
+    augroup WRITEGOOD_LINT
+        autocmd!
+        autocmd CursorMoved,CursorHold <buffer> DisplayMessage()
+    augroup END
 
     # Save for updating the QuickFixList.
-    if !exists('#WRITEGOOD_REFRESH_ON_SAVE#BufWritePost')
-        augroup WRITEGOOD_REFRESH_ON_SAVE
-            autocmd!
-            autocmd BufWritePost <buffer> TurnOff() | TurnOn()
-        augroup END
+    augroup WRITEGOOD_REFRESH_ON_SAVE
+        autocmd!
+        autocmd BufWritePost <buffer> TurnOff() | TurnOn()
+    augroup END
+enddef
+
+def DisplayMessage()
+    var idx = index(b:line_numbers, line('.'))
+
+    if idx != -1
+        echo b:error_messages[idx]
+    else
+        echo ""
     endif
 enddef
 
@@ -81,24 +86,25 @@ def TurnOff()
 
     b:line_numbers = []
     b:error_messages = []
+    b:writegood_is_on = false
 
-    if exists('#WRITEGOOD_LINT#CursorMoved')
-        augroup WRITEGOOD_LINT
-            autocmd!
-        augroup END
-    endif
+    augroup WRITEGOOD_LINT
+        autocmd!
+    augroup END
 
-    if exists('#WRITEGOOD_REFRESH_ON_SAVE#BufWritePost')
-        augroup WRITEGOOD_REFRESH_ON_SAVE
-            autocmd!
-        augroup END
-    endif
+    augroup WRITEGOOD_REFRESH_ON_SAVE
+        autocmd!
+    augroup END
 enddef
 
 export def Toggle()
-    # Existence of #WRITEGOOD_LINT#CursorMoved also imply that the linting is
-    # ON.
-    if exists('#WRITEGOOD_LINT#CursorMoved')
+    # Init
+    if !exists("b:writegood_is_on")
+        b:writegood_is_on = false
+    endif
+
+    # Execution
+    if b:writegood_is_on
         TurnOff()
     else
         TurnOn()

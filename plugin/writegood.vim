@@ -24,6 +24,10 @@ if !exists('g:writegood_options')
     g:writegood_options = ""
 endif
 
+if !exists('g:writegood_compiler')
+    g:writegood_compiler = "writegood"
+endif
+
 if !exists('g:writegood_linehl')
      g:writegood_linehl = "CursorLine"
 endif
@@ -41,7 +45,7 @@ if !exists('g:writegood_updatetime')
 endif
 
 if !exists('g:writegood_autoupdate')
-    g:writegood_autoupdate = true
+    g:writegood_autoupdate = false
 endif
 
 # --------------------------
@@ -51,9 +55,15 @@ endif
 import autoload "../lib/wgfunctions.vim"
 
 if !exists(":WritegoodToggle")
-  command WritegoodToggle call <SID>wgfunctions.WriteGoodToggle()
+  command WritegoodToggle call <SID>wgfunctions.Toggle()
 endif
 
 if !exists(":WritegoodRefresh")
-  command WritegoodRefresh call <SID>wgfunctions.WriteGoodRefresh()
+  command WritegoodRefresh call <SID>wgfunctions.Refresh()
 endif
+
+augroup WRITEGOOD_UPDATE
+    autocmd!
+    autocmd QuickFixCmdPre [^l]* wgfunctions.ClearAll()
+    autocmd QuickFixCmdPost [^l]* wgfunctions.HighlightOn()
+augroup END

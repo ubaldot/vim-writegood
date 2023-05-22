@@ -6,35 +6,28 @@ sign_define('writegood',
     \ "linehl": g:writegood_linehl,
     \ "textl": g:writegood_texthl })
 
-var tmp = tempname()
+export def Refresh()
+    # Call make
+    if g:writegood_compiler ==# "writegood"
+        compiler writegood
+    else
+        compiler vale
+    endif
 
-def WriteGoodOn()
-    # Call writegood
-    writefile(getbufline('%', 1, line('$')), tmp)
-    defer delete(tmp)
-    var text_list = systemlist("write-good " .. g:writegood_options .. tmp)
+    # Generate QuickFixList
+    silent make
+enddef
 
-    # Search error messages and lines
-    var delimiter = "------------"
-    b:line_numbers = []
-    var error_message = ""
-    b:error_messages = []
-    # TODO The following search can be optimized and robustified
-    for ii in range(0, len(text_list) - 1)
-        # Check if the line starts with the delimiter
-        if text_list[ii][0 : len(delimiter) - 1] ==# delimiter
-            b:line_numbers -> add(str2nr(matchstr(text_list[ii - 1],
-                        \ 'on line \zs\d\+')))
-            error_message = "write-good: " .. matchstr(text_list[ii - 1],
-                        \ '^\(.*\)on line \d\+')
-                        \ -> substitute('on line \d\+', "", "g")
-            b:error_messages -> add(error_message)
-        endif
-    endfor
+# This is triggered by the event QuickFixCmdPost
+export def HighlightOn()
+    # b:line_numbers = []
+    # b:error_messages = []
+    var qflist = getqflist()
 
-    # Place signs.
-    for line in b:line_numbers
-        sign_place(0, 'writegood_grp', 'writegood', '%', {'lnum': line})
+    for entry in qflist
+        add(b:line_numbers, entry.lnum)
+        add(b:error_messages, entry.text)
+        sign_place(0, 'writegood_grp', 'writegood', '%', {'lnum': entry.lnum})
     endfor
 
     # Set autocmd
@@ -57,15 +50,21 @@ def WriteGoodOn()
         execute "setlocal updatetime=" .. g:writegood_updatetime
         augroup WRITEGOOD_AUTOUPDATE
             autocmd!
-            autocmd CursorHold <buffer> WriteGoodRefresh()
+            autocmd CursorHold <buffer> Refresh()
         augroup END
     endif
 enddef
 
-def WriteGoodOff()
+# This is triggered by the event QuickFixCmdPre
+# OR by toggle when you want to shutoff everything
+export def ClearAll()
+    # This is always the first from a user perspective.
     # No need to check if there are any sign, the following works anyways
     # (In the worst case it returns -1).
     sign_unplace('writegood_grp', {'buffer': '%'})
+    setqflist([])
+    b:line_numbers = []
+    b:error_messages = []
 
     if exists('#WRITEGOOD_LINT#CursorMoved')
         augroup WRITEGOOD_LINT
@@ -79,17 +78,12 @@ def WriteGoodOff()
     endif
 enddef
 
-export def WriteGoodToggle()
+export def Toggle()
     # Existence of #WRITEGOOD_LINT#CursorMoved also imply that the linting is
     # ON.
     if exists('#WRITEGOOD_LINT#CursorMoved')
-        WriteGoodOff()
+        ClearAll()
     else
-        WriteGoodOn()
+        Refresh()
     endif
-enddef
-
-export def WriteGoodRefresh()
-    WriteGoodOff()
-    WriteGoodOn()
 enddef

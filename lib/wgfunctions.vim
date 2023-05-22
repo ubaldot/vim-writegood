@@ -6,9 +6,6 @@ sign_define('writegood',
     \ "linehl": g:writegood_linehl,
     \ "textl": g:writegood_texthl })
 
-
-var tmp = tempname()
-
 export def Refresh()
     if g:writegood_compiler ==# "writegood"
         compiler writegood
@@ -17,9 +14,10 @@ export def Refresh()
     endif
 
     # Generate QuickFixList
-    writefile(getbufline('%', 1, line('$')), tmp)
-    defer delete(tmp)
-    silent exe $"make {tmp}"
+    # writefile(getbufline('%', 1, line('$')), tmp)
+    # defer delete(tmp)
+    # silent exe $"make {tmp}"
+    silent make
 enddef
 
 # This is triggered by the event QuickFixCmdPost
@@ -46,15 +44,6 @@ export def HighlightOn()
                 \ | endif
         augroup END
     endif
-
-    # If user wants to auto update the diagnostics
-    if !exists('#WRITEGOOD_AUTOUPDATE#CursorHold') && g:writegood_autoupdate
-        execute "setlocal updatetime=" .. g:writegood_updatetime
-        augroup WRITEGOOD_AUTOUPDATE
-            autocmd!
-            autocmd CursorHold <buffer> Refresh()
-        augroup END
-    endif
 enddef
 
 # This is triggered by the event QuickFixCmdPre
@@ -70,11 +59,6 @@ export def ClearAll()
 
     if exists('#WRITEGOOD_LINT#CursorMoved')
         augroup WRITEGOOD_LINT
-            autocmd!
-        augroup END
-    endif
-    if exists('#WRITEGOOD_AUTOUPDATE#CursorHold')
-        augroup WRITEGOOD_AUTOUPDATE
             autocmd!
         augroup END
     endif

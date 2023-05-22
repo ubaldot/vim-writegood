@@ -11,13 +11,13 @@ Vim-writegood check your English prose.<br>
 
 It is nothing but a simple Vim9 wrapper around
 [write-good](https://github.com/btford/write-good) and
-[vale](https://vale.sh). You choose which one you want to use.
+[vale](https://vale.sh). You choose which one to use.
 
 
 ## Requirements
 You must have [write-good](https://github.com/btford/write-good) and/or
 [vale](https://vale.sh) installed.  Note that [vale](https://vale.sh)
-need some configuration work. Check the docs for more info.
+need some configuration work. Check its docs for more info.
 
 Oh, and you need Vim9 of course.
 
@@ -32,8 +32,8 @@ which represents the only command in vim-writegood.<br>
 
 The diagnostic messages are displayed in the command-line and are stored in
 the quickfix list.<br>
-This means that you can use all the quickfix list features to conveniently
-move around. See `:h quickfix`.<br>
+This means that you can use all the quickfix list features such as `:cnext,
+:cprev, :copen`, etc. to conveniently move around. See `:h quickfix`.<br>
 
 The quickfix list automatically updates  "on save", i.e.  you must save your
 file to refresh the linting.

@@ -36,7 +36,7 @@ This means that you can use quickfix list features to conveniently move
 around. See `:h quickfix`.<br>
 
 The quickfix list automatically updates  "on save", i.e.  you must save your
-file to refresh the linting because it won't happen in real-time.
+file to refresh the linting.
 
 >**Warning**
 >

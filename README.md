@@ -7,7 +7,7 @@ Check your English prose in Vim.
 
 
 ## Introduction
-Vim-writegood naively check your English prose.<br>
+Vim-writegood check your English prose.<br>
 
 It is nothing but a simple Vim9 wrapper around
 [write-good](https://github.com/btford/write-good) and
@@ -23,17 +23,20 @@ Oh, and you need Vim9 of course.
 
 
 ## Usage
-Vim-writegood has one command:
+First, you need to turn on the linter with following command:
 
 ```
 :WriteGoodToggle
 ```
-diagnostic messages are placed in the quickfix list and are also displayed in
-the command-line.<br>
+which represents the only command in vim-writegood.<br>
 
-You can use all the quickfix list functions, such as `:copen, :cnext,
-:cprev`, etc.  Try the commands that I just wrote to see what happens.
-And check `:h quickfix` for more info.
+The diagnostic messages are displayed in the command-line and are stored in
+the quickfix list.
+This means that you can use all the quickfix list features to
+jump to the next message, to the previous, to list all the messages, etc.
+See `:h quickfix` for more info.
+The quickfix list is updated automatically "on save", i.e. diagnostic
+information are updated every time you save your file.
 
 >**Warning**
 > When you change (or come back to a previous) buffer, you have to manually

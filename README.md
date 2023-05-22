@@ -33,10 +33,11 @@ which represents the only command in vim-writegood.<br>
 The diagnostic messages are displayed in the command-line and are stored in
 the quickfix list.<br>
 This means that you can use all the quickfix list features such as `:cnext,
-:cprev, :copen`, etc. to conveniently move around. See `:h quickfix`.<br>
+:cprev, :copen`, etc. to conveniently move around.
+See `:h quickfix` for more info.<br>
 
 The quickfix list automatically updates  "on save", i.e.  you must save your
-file to refresh the linting.
+file to refresh the linting after you have fixed some problems.
 
 >**Warning**
 >

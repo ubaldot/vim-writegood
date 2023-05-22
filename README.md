@@ -23,12 +23,12 @@ Oh, and you need Vim9 of course.
 
 
 ## Usage
-First, you need to turn on the linter with following command:
+Vim-writegood has only one command:
 
 ```
 :WriteGoodToggle
 ```
-which represents the only command in vim-writegood.<br>
+which is used to turn on and off the linter.
 
 The diagnostic messages are displayed in the command-line and are stored in
 the quickfix list.<br>

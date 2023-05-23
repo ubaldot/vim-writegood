@@ -9,15 +9,13 @@ Check your English prose in Vim.
 ## Introduction
 Vim-writegood check your English prose.<br>
 
-It is nothing but a simple Vim9 wrapper around
-[write-good](https://github.com/btford/write-good) and
-[vale](https://vale.sh). You choose which one to use.
-
+It is nothing but a simple Vim9 wrapper around prose linters.
 
 ## Requirements
-You must have [write-good](https://github.com/btford/write-good) and/or
-[vale](https://vale.sh) installed.  Note that [vale](https://vale.sh)
-need some configuration work. Check its docs for more info.
+You must have a prose linter installed. Currently supported linters are
+[write-good](https://github.com/btford/write-good) and
+[vale](https://vale.sh).  Check their docs for installation and configuration
+guidelines.
 
 Oh, and you need Vim9 of course.
 
@@ -30,14 +28,15 @@ Vim-writegood has only one command:
 ```
 which is used to turn on and off the linter.
 
-The diagnostic messages are displayed in the command-line and are stored in
-the quickfix list.<br>
-This means that you can use all the quickfix list features such as `:cnext,
+The diagnostic messages are stored in the quickfix list and displayed in the
+command-line.<cr>
+You can use all the quickfix list features such as `:cnext,
 :cprev, :copen`, etc. to conveniently move around.
 See `:h quickfix` for more info.<br>
 
 The quickfix list automatically updates  "on save", i.e.  you must save your
-file to refresh the linting after you have fixed some problems.
+file to refresh the linting otherwise you won't see your problems to
+disappear.
 
 >**Warning**
 >

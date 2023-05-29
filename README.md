@@ -62,4 +62,4 @@ sign_define()` and to figure out possible values type `:highlight`.
 Feel free to send a PR if have any improvement ideas.
 
 ## License
-Same as Vim.
+BSD3-Clause.

@@ -3,7 +3,7 @@ vim9script noclear
 # Naively check your English prose.
 # Maintainer:	Ubaldo Tiberi
 # GetLatestVimScripts: 6073 1 :AutoInstall: writegood.vim
-# License: Vim license
+# License: BSD3-Clause
 
 if !has('vim9script') ||  v:version < 900
   # Needs Vim version 9.0 and above
